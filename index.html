@@ -14,9 +14,10 @@
         @import 'tailwindcss';
 
         @theme{
-            --animate-flipFrontOnce: flipFront 1s ease;
+            --animate-fullFrontFlipOnce: fullFrontFlip 1s ease;
+            --animate-fullSideFlipOnce: fullSideFlip 1s ease;
 
-            @keyframes flipFront {
+            @keyframes fullFrontFlip {
                 from {
                     transform: rotateX(0deg);
                 }
@@ -24,10 +25,19 @@
                     transform: rotateX(360deg);
                 }
             }
+
+            @keyframes fullSideFlip {
+                from {
+                    transform: rotateY(0deg);
+                }
+                to {
+                    transform: rotateY(360deg);
+                }
+            }
         }
 
         body {
-            @apply bg-gray-200 mx-2;
+            @apply bg-gray-200;
         }
 
         h1 {
@@ -38,17 +48,22 @@
             @apply text-[24px] text-gray-600 font-semibold;
         }
 
-        /* Navbar */
-        nav .nav-card {
-            @apply absolute h-full w-full transform-3d transition-all duration-500 shadow-md animate-flipFrontOnce;
+        .menu-item {
+            @apply rounded-lg px-4 py-2 hover:bg-gray-400 hover:text-white;
         }
 
-        nav .nav-card .face {
+        /* Navbar */
+        /* flip-card always under relative or sticky parent */
+        .flip-card {
+            @apply absolute h-full w-full transform-3d transition-all duration-500;
+        }
+
+        .flip-card .face {
             @apply absolute h-full w-full backface-hidden flex items-center;
         }
 
         nav .dropdown {
-            position: relative;
+            @apply relative rounded-lg px-4 py-2;
         }
 
         nav .dropdown-button {
@@ -76,19 +91,35 @@
 
 </head>
 <body>
-    <header class="mb-3">
-        <h1>Flip UI</h1>
-        <p class="break-all">It's just an HTML UI template to be used as default UI in my projects. Because I often take much time just thinking about styling rather than do the actual code.</p>
-    </header>
+    <aside class="fixed mt-[64px] md:mt-0 h-full w-[160px] hidden md:block p-2">
+        <div class="relative h-full w-full">
+            <div class="flip-card shadow-md rounded-lg animate-fullSideFlipOnce">
+                <div class="face bg-gray-300 rounded-lg flex-col pt-3">
+                    <h2>Sidebar</h2>
+                    <ul class="flex flex-col w-full justify-center">
+                        <li class="menu-item text-center">Menu 1</li>
+                        <li class="menu-item text-center">Menu 2</li>
+                        <li class="menu-item text-center">Menu 3</li>
+                        <li class="menu-item text-center">Menu 4</li>
+                        <li class="menu-item text-center">Menu 5</li>
+                    </ul>
+                </div>
+                <div class="face bg-gray-300 rounded-lg rotate-y-180">
 
-    <nav class="relative h-14">
-        <div class="nav-card rounded-lg">
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <nav class="md:ms-[160px] sticky top-0 h-14 p-2 me-4">
+        <div class="flip-card rounded-lg shadow-md animate-fullFrontFlipOnce">
             <div class="face bg-gray-300 rounded-lg">
                 <div class="flex items-center justify-between w-full mx-2">
 
                     <!-- Mobile Menu Button -->
-                    <div class="flex items-center md:hidden">
-                        <button type="button" class="px-4 py-2 rounded-lg" onclick="toggleMobileMenu()"><i class="fa fa-bars"></i></button>
+                    <div id="menuToggler" class="flex items-center md:hidden">
+                        <button type="button" class="bg-gray-500 text-white  px-4 py-2 rounded-lg" onclick="toggleMobileSideMenu()"><i class="fa fa-chevron-right transition-all duration-500"></i></button>
+                        <button type="button" class="px-4 py-2 rounded-lg" onclick="toggleMobileTopMenu()"><i class="fa fa-bars"></i></button>
                     </div>
 
                     <!-- Navbar Icon -->
@@ -102,7 +133,7 @@
                     shadow-md md:shadow-none p-4 md:p-0
                     justify-center">
                         <ul class="flex flex-col md:flex-row gap-5 border-t border-gray-400 md:border-0 pt-3 md:pt-0">
-                            <li class="dropdown px-4 py-2 rounded-lg">
+                            <li class="dropdown">
                                 <a href="#" class="dropdown-button">Master</a>
                                 <ul class="dropdown-menu w-full md:w-48 
                                 hidden relative md:absolute 
@@ -113,10 +144,10 @@
                                     <li><a href="#" class="dropdown-item">Item</a></li>
                                 </ul>
                             </li>
-                            <li class="rounded-lg px-4 py-2 hover:bg-gray-400 hover:text-white">
+                            <li class="menu-item">
                                 <a href="#" class="">Transaction</a>
                             </li>
-                            <li class="rounded-lg px-4 py-2 hover:bg-gray-400 hover:text-white">
+                            <li class="menu-item">
                                 <a href="#" class="">Report</a>
                             </li>
                         </ul>
@@ -135,11 +166,13 @@
         </div>
     </nav>
 
-    <aside>
-        <h2>Sidebar</h2>
-    </aside>
+    <main class="md:ms-[160px] p-2">
+        
+        <header class="mb-3">
+            <h1>Flip UI</h1>
+            <p class="break-all">It's just an HTML UI template to be used as default UI in my projects. Because I often take much time just thinking about styling rather than do the actual code.</p>
+        </header>
 
-    <main>
         <section>
             <h2>Inputs</h2>
         </section>
@@ -155,6 +188,18 @@
         <section>
             <h2>Form</h2>
         </section>
+
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, nihil excepturi. Incidunt ut amet blanditiis, aperiam nemo earum molestias enim aspernatur modi dolores ex non a voluptatem accusamus doloribus et.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati libero quod totam? Quod, quasi consequuntur dolores asperiores dignissimos sequi dolore ullam aut quibusdam cum odit architecto alias earum necessitatibus? Inventore!
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti omnis commodi, est placeat, quaerat rem perspiciatis rerum nihil eligendi error, aspernatur voluptatem fugit accusamus. Assumenda dolores officiis ullam tempore voluptate?
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem illum ipsam tempore hic. Dicta error omnis temporibus alias deleniti vero ipsa repudiandae impedit cum, reprehenderit possimus quam. Adipisci, possimus laudantium.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam illo porro sint, quisquam asperiores expedita ex iste voluptas fugiat nobis, nostrum atque hic accusamus. Quas expedita necessitatibus suscipit facere debitis!
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veniam minima odio corporis, aspernatur esse veritatis, recusandae voluptate delectus perferendis sit eaque, pariatur ab nulla consequatur reiciendis adipisci. Velit, iusto natus!
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus minus accusantium quos delectus aliquid recusandae nulla animi laudantium architecto et, excepturi, in, odio explicabo beatae facere impedit iste tempore sint.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos cumque quibusdam, provident dolorum maxime expedita tempore quas debitis eaque hic repellat, officiis dolor reprehenderit repellendus architecto? Ipsum repellat veniam cupiditate?
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste commodi excepturi praesentium atque unde, a, minima nobis eos facilis veritatis vel cumque iusto, at deserunt autem tempore accusantium facere placeat!
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti voluptatibus nisi numquam repellat est iste alias vero tempora in recusandae explicabo magnam, consequatur aliquam magni qui, quidem, vel sapiente nostrum.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae voluptas quo, minus veritatis nesciunt voluptatibus ut reprehenderit necessitatibus iure consequatur quia. Eveniet nisi ex voluptates perferendis, sed pariatur temporibus excepturi.
     </main>
 
     <script src="script.js"></script>
