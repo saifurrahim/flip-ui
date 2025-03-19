@@ -6,39 +6,126 @@
     <title>Flip UI</title>
 
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
     <link rel="stylesheet" href="style.css">
+    
+    <style type="text/tailwindcss">
+        @import 'tailwindcss';
+
+        body {
+            @apply bg-gray-200 mx-2;
+        }
+
+        h1 {
+            @apply text-[32px] text-gray-800 font-bold;
+        }
+
+        h2 {
+            @apply text-[24px] text-gray-600 font-semibold;
+        }
+
+        /* Navbar Dropdown */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-button {
+            @apply cursor-pointer;
+        }
+
+        .dropdown-button::after {
+            content: '\f078';
+            font-family: 'FontAwesome';
+            margin-left: .25rem;
+        }
+
+        .dropdown-item {
+            @apply block py-2 px-4 hover:bg-gray-400 hover:text-white rounded-lg;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            @apply block;
+        }
+
+        .dropdown-menu:hover {
+            @apply block;
+        }
+    </style>
 
 </head>
 <body>
-    <header>
-        <h1 class="text-4xl">Flip UI</h1>
-        <p class="break-all">It's just an HTML UI template to be used as default UI in my projects. Because I often take much time just thinking about styling rather than the actual code.</p>
+    <header class="mb-3">
+        <h1>Flip UI</h1>
+        <p class="break-all">It's just an HTML UI template to be used as default UI in my projects. Because I often take much time just thinking about styling rather than do the actual code.</p>
     </header>
 
-    <nav>
-        Navbar
+    <nav class="relative flex justify-between items-center bg-gray-300 px-4 py-2 rounded-lg shadow-md">
+        <!-- Mobile Menu Button -->
+         <div class="flex items-center md:hidden">
+            <button type="button" class="px-4 py-2 rounded-lg" onclick="toggleMobileMenu()"><i class="fa fa-bars"></i></button>
+         </div>
+
+        <!-- Navbar Icon -->
+         <div class="flex">
+            <h2>Navbar</h2>
+         </div>
+
+         <!-- Navbar Menu -->
+          <div class="bg-gray-300 hidden md:flex w-full absolute md:static 
+          top-12 left-0 md:inset-0 rounded-lg 
+          shadow-md md:shadow-none p-4 md:p-0
+          justify-center">
+            <ul class="flex flex-col md:flex-row gap-5 border-t border-gray-400 md:border-0 pt-3 md:pt-0">
+                <li class="dropdown px-4 py-2 rounded-lg">
+                    <a href="#" class="dropdown-button">Master</a>
+                    <ul class="dropdown-menu w-full md:w-48 
+                    hidden relative md:absolute 
+                    bg-gray-300 md:shadow-md 
+                    border-b border-gray-400 md:border-0 p-2">
+                        <li><a href="#" class="dropdown-item">User</a></li>
+                        <li><a href="#" class="dropdown-item">Transaction Code</a></li>
+                        <li><a href="#" class="dropdown-item">Item</a></li>
+                    </ul>
+                </li>
+                <li class="rounded-lg px-4 py-2 hover:bg-gray-400 hover:text-white">
+                    <a href="#" class="">Transaction</a>
+                </li>
+                <li class="rounded-lg px-4 py-2 hover:bg-gray-400 hover:text-white">
+                    <a href="#" class="">Report</a>
+                </li>
+            </ul>
+          </div>
+
+          <!-- Navbar Action -->
+           <div class="flex items-center gap-2">
+                <span>Username</span>
+                <button type="button" class="bg-gray-800 text-white rounded-lg px-4 py-2">Logout</button>
+           </div>
     </nav>
 
     <aside>
-        Sidebar
+        <h2>Sidebar</h2>
     </aside>
 
     <main>
         <section>
-            Inputs
+            <h2>Inputs</h2>
         </section>
         <section>
-            Buttons
+            <h2>Buttons</h2>
         </section>
         <section>
-            Flip Card
+            <h2>Alert</h2>
         </section>
         <section>
-            Alert
+            <h2>Flip Card</h2>
         </section>
         <section>
-            Form
+            <h2>Form</h2>
         </section>
     </main>
+
+    <script src="script.js"></script>
 </body>
 </html>
