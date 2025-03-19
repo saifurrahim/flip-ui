@@ -13,6 +13,19 @@
     <style type="text/tailwindcss">
         @import 'tailwindcss';
 
+        @theme{
+            --animate-flipFrontOnce: flipFront 1s ease;
+
+            @keyframes flipFront {
+                from {
+                    transform: rotateX(0deg);
+                }
+                to {
+                    transform: rotateX(360deg);
+                }
+            }
+        }
+
         body {
             @apply bg-gray-200 mx-2;
         }
@@ -25,30 +38,38 @@
             @apply text-[24px] text-gray-600 font-semibold;
         }
 
-        /* Navbar Dropdown */
-        .dropdown {
+        /* Navbar */
+        nav .nav-card {
+            @apply absolute h-full w-full transform-3d transition-all duration-500 shadow-md animate-flipFrontOnce;
+        }
+
+        nav .nav-card .face {
+            @apply absolute h-full w-full backface-hidden flex items-center;
+        }
+
+        nav .dropdown {
             position: relative;
         }
 
-        .dropdown-button {
+        nav .dropdown-button {
             @apply cursor-pointer;
         }
 
-        .dropdown-button::after {
+        nav .dropdown-button::after {
             content: '\f078';
             font-family: 'FontAwesome';
             margin-left: .25rem;
         }
 
-        .dropdown-item {
+        nav .dropdown-item {
             @apply block py-2 px-4 hover:bg-gray-400 hover:text-white rounded-lg;
         }
 
-        .dropdown:hover .dropdown-menu {
+        nav .dropdown:hover .dropdown-menu {
             @apply block;
         }
 
-        .dropdown-menu:hover {
+        nav .dropdown-menu:hover {
             @apply block;
         }
     </style>
@@ -60,48 +81,58 @@
         <p class="break-all">It's just an HTML UI template to be used as default UI in my projects. Because I often take much time just thinking about styling rather than do the actual code.</p>
     </header>
 
-    <nav class="relative flex justify-between items-center bg-gray-300 px-4 py-2 rounded-lg shadow-md">
-        <!-- Mobile Menu Button -->
-         <div class="flex items-center md:hidden">
-            <button type="button" class="px-4 py-2 rounded-lg" onclick="toggleMobileMenu()"><i class="fa fa-bars"></i></button>
-         </div>
+    <nav class="relative h-14">
+        <div class="nav-card rounded-lg">
+            <div class="face bg-gray-300 rounded-lg">
+                <div class="flex items-center justify-between w-full mx-2">
 
-        <!-- Navbar Icon -->
-         <div class="flex">
-            <h2>Navbar</h2>
-         </div>
+                    <!-- Mobile Menu Button -->
+                    <div class="flex items-center md:hidden">
+                        <button type="button" class="px-4 py-2 rounded-lg" onclick="toggleMobileMenu()"><i class="fa fa-bars"></i></button>
+                    </div>
 
-         <!-- Navbar Menu -->
-          <div class="bg-gray-300 hidden md:flex w-full absolute md:static 
-          top-12 left-0 md:inset-0 rounded-lg 
-          shadow-md md:shadow-none p-4 md:p-0
-          justify-center">
-            <ul class="flex flex-col md:flex-row gap-5 border-t border-gray-400 md:border-0 pt-3 md:pt-0">
-                <li class="dropdown px-4 py-2 rounded-lg">
-                    <a href="#" class="dropdown-button">Master</a>
-                    <ul class="dropdown-menu w-full md:w-48 
-                    hidden relative md:absolute 
-                    bg-gray-300 md:shadow-md 
-                    border-b border-gray-400 md:border-0 p-2">
-                        <li><a href="#" class="dropdown-item">User</a></li>
-                        <li><a href="#" class="dropdown-item">Transaction Code</a></li>
-                        <li><a href="#" class="dropdown-item">Item</a></li>
-                    </ul>
-                </li>
-                <li class="rounded-lg px-4 py-2 hover:bg-gray-400 hover:text-white">
-                    <a href="#" class="">Transaction</a>
-                </li>
-                <li class="rounded-lg px-4 py-2 hover:bg-gray-400 hover:text-white">
-                    <a href="#" class="">Report</a>
-                </li>
-            </ul>
-          </div>
+                    <!-- Navbar Icon -->
+                    <div class="flex">
+                        <h2>Navbar</h2>
+                    </div>
 
-          <!-- Navbar Action -->
-           <div class="flex items-center gap-2">
-                <span>Username</span>
-                <button type="button" class="bg-gray-800 text-white rounded-lg px-4 py-2">Logout</button>
-           </div>
+                    <!-- Navbar Menu -->
+                    <div class="bg-gray-300 hidden md:flex w-full absolute md:static 
+                    top-12 left-0 md:inset-0 rounded-lg 
+                    shadow-md md:shadow-none p-4 md:p-0
+                    justify-center">
+                        <ul class="flex flex-col md:flex-row gap-5 border-t border-gray-400 md:border-0 pt-3 md:pt-0">
+                            <li class="dropdown px-4 py-2 rounded-lg">
+                                <a href="#" class="dropdown-button">Master</a>
+                                <ul class="dropdown-menu w-full md:w-48 
+                                hidden relative md:absolute 
+                                bg-gray-300 md:shadow-md 
+                                border-b border-gray-400 md:border-0 p-2">
+                                    <li><a href="#" class="dropdown-item">User</a></li>
+                                    <li><a href="#" class="dropdown-item">Transaction Code</a></li>
+                                    <li><a href="#" class="dropdown-item">Item</a></li>
+                                </ul>
+                            </li>
+                            <li class="rounded-lg px-4 py-2 hover:bg-gray-400 hover:text-white">
+                                <a href="#" class="">Transaction</a>
+                            </li>
+                            <li class="rounded-lg px-4 py-2 hover:bg-gray-400 hover:text-white">
+                                <a href="#" class="">Report</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Navbar Action -->
+                    <div class="flex items-center gap-2">
+                            <span>Username</span>
+                            <button type="button" class="bg-gray-800 text-white rounded-lg px-4 py-2">Logout</button>
+                    </div>
+                </div>
+            </div>
+            <div class="face bg-gray-300 rotate-y-[180deg] rounded-lg">
+
+            </div>
+        </div>
     </nav>
 
     <aside>
