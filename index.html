@@ -7,6 +7,10 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
     <link rel="stylesheet" href="style.css">
     
@@ -146,13 +150,12 @@
         }
 
         /* Inputs */
-
         input[type=text] {
-            @apply bg-gray-100 px-2 py-1 shadow-sm focus:outline-indigo-500 rounded-sm transform-3d focus:animate-fullFrontFlipOnce
+            @apply appearance-none bg-gray-100 px-2 py-1 shadow-sm outline-0 border-0 rounded-sm focus:animate-fullFrontFlipOnce;
         }
 
         input[type=checkbox] {
-            @apply appearance-none relative w-4 h-4 bg-white border border-gray-300 rounded-sm checked:bg-blue-600 checked:border-transparent transform-3d checked:animate-fullFrontFlipOnce;
+            @apply appearance-none relative w-4 h-4 bg-white border border-gray-300 rounded-sm checked:bg-blue-600 checked:border-transparent checked:animate-fullFrontFlipOnce;
 
             &:checked::before {
                 content: '\f00c'; /* Unicode character for checkmark */
@@ -160,11 +163,64 @@
                 @apply text-white absolute bottom-[-25%];
             }
         }
+        
+        .select2-container {
+            @apply !rounded-sm !shadow-sm !bg-gray-100 !w-full;
+        }
+
+        .select2-container:has(.select2-selection--single[aria-expanded="true"]) {
+            @apply animate-fullFrontFlipOnce;
+        }
+
+        .select2-container--default .select2-selection--single {
+            @apply !border-0 !rounded-sm !h-10 !align-middle;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            @apply !h-full !flex !items-center;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__clear {
+            font-family: 'FontAwesome';
+            content: "\f00d"; /* fa-times */
+            @apply !h-full !flex !items-center !pe-4;
+        }
+
+        .select2-container--open .select2-dropdown--below {
+            @apply !border-0 !rounded-sm !mt-1;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            @apply !top-[15%] !right-[2%];
+
+            & b {
+                border-color: black transparent transparent transparent !important;
+                border-width: 6px 5px 0 5px !important;
+            }
+        }
+        
+        .select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
+            border-color: transparent transparent black transparent !important;
+            border-width: 0 5px 6px 5px !important;
+        }
+
+        .select2-container--default .select2-search--dropdown .select2-search__field {
+            @apply !rounded-sm !border-0 !shadow-sm !outline-0 ps-7;
+        }
+
+        .select2-search--dropdown::before {
+            content: '\f002'; /* search icon */
+            font-family: 'FontAwesome';
+            position: absolute;
+            top: 8%;
+            left: 3%;
+
+        }
     </style>
 
 </head>
 <body>
-    <aside class="fixed mt-[64px] md:mt-0 h-full w-[var(--sidebar-width)] hidden md:block p-2">
+    <aside class="fixed mt-[64px] md:mt-0 h-full w-[var(--sidebar-width)] hidden md:block p-2 z-10">
         <div class="relative h-full w-full">
             <div class="flip-card shadow-md rounded-lg animate-fullSideFlipOnce">
                 <div class="face bg-gray-300 rounded-lg flex-col pt-3">
@@ -184,14 +240,14 @@
         </div>
     </aside>
 
-    <nav class="md:ms-[var(--sidebar-width)] sticky top-0 h-14 p-2 me-4">
+    <nav class="md:ms-[var(--sidebar-width)] sticky top-0 h-14 p-2 me-4 z-10">
         <div class="flip-card rounded-lg shadow-md animate-fullFrontFlipOnce">
             <div class="face bg-gray-300 rounded-lg">
                 <div class="flex items-center justify-between w-full mx-2">
 
                     <!-- Mobile Menu Button -->
                     <div id="menuToggler" class="flex items-center md:hidden">
-                        <button type="button" class="px-4 py-2 rounded-lg" onclick="toggleMobileSideMenu()"><i class="fa fa-chevron-right transition-all duration-500"></i></button>
+                        <button type="button" class="px-4 py-2 rounded-lg cursor-pointer" onclick="toggleMobileSideMenu()"><i class="fa fa-chevron-right transition-all duration-500"></i></button>
                         <div class="relative">
                             <input type="checkbox" id="burgerToX" onchange="toggleMobileTopMenu(event)">
                             <label for="burgerToX"></label>
@@ -261,10 +317,18 @@
 
         <section>
             <h2>Inputs</h2>
-            <div class="my-2">
-                <input type="text" placeholder="Input Text...">
-                <input type="checkbox" id="inputCheckbox">
-                <label for="inputCheckbox">Used</label>
+            <div class="my-2 flex flex-col md:flex-row md:items-center gap-2">
+                <input type="text" placeholder="Input Text..." class="w-full h-10">
+                <div class="relative z-0 flex items-center gap-1">
+                    <input type="checkbox" id="inputCheckbox">
+                    <label for="inputCheckbox">Used</label>
+                </div>
+                <select class="" required>
+                    <option value="" selected class="hidden"></option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+                
             </div>
         </section>
         <section>

@@ -43,6 +43,12 @@ document.addEventListener('click', (event) => {
     }
 });
 
+$(document).ready(function() {
+    $('select').select2({
+        placeholder: 'Choose...',
+        allowClear: true
+    });
+});
 
 function toggleMobileTopMenu(e){
     let navMenu = document.querySelector('nav div:nth-child(3)');
