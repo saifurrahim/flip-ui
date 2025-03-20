@@ -85,3 +85,22 @@ function toggleMobileSideMenu(){
     sideToggler.style.transform = sideToggler.style.transform == 'rotate(90deg)' ? 'rotate(0deg)' : 'rotate(90deg)';
 }
 
+function faceDown(){
+    const idCard = document.getElementById('idCard');
+    idCard.style.transform = 'rotateY(180deg)';
+}
+
+function faceUp(){
+    const idCard = document.getElementById('idCard');
+    idCard.style.transform = 'rotateY(0deg)';
+}
+
+async function buttonClick(event) {
+    let flipCard = event.target.parentNode.parentNode;
+    flipCard.style.transform = 'rotateY(180deg)';
+
+    await setTimeout(() => {
+        flipCard.style.transform = 'rotateY(0deg)';
+    },2000);
+    
+}
