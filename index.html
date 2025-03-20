@@ -11,11 +11,10 @@
     <link rel="stylesheet" href="style.css">
     
     <style type="text/tailwindcss">
-        @import 'tailwindcss';
-
         @theme{
-            --animate-fullFrontFlipOnce: fullFrontFlip 1s ease;
-            --animate-fullSideFlipOnce: fullSideFlip 1s ease;
+            --sidebar-width: 160px;
+            --animate-fullFrontFlipOnce: fullFrontFlip .5s ease both;
+            --animate-fullSideFlipOnce: fullSideFlip .5s ease both;
 
             @keyframes fullFrontFlip {
                 from {
@@ -52,6 +51,62 @@
             @apply rounded-lg px-4 py-2 hover:bg-gray-400 hover:text-white;
         }
 
+        #burgerToX {
+            display: none;
+        }
+
+        #burgerToX ~ label {
+            margin-left: .75em;
+            width: 1.75em;
+            height: .15em;
+            background-color: black;
+            position: absolute;
+            cursor: pointer;
+            top:45%;
+            transition: all .5s cubic-bezier(1,0,0,1);
+            
+            &::before,
+            &::after {
+                content: '';
+                width: 1.75em;
+                height: .15em;
+                background-color: black;
+                position: absolute;
+                display: block;
+                transform: rotate(0deg);
+                transition: all .5s cubic-bezier(1,0,0,1);
+            }
+
+            &::before {
+                top: -345%;
+                left: 0;
+            }
+            
+            &::after {
+                bottom: -345%;
+                left: 0;
+            }
+        }
+
+        #burgerToX:checked ~ label {
+            background-color: transparent;
+
+            /* &::before,
+            &::after {
+                background-color: white;
+            } */
+
+            &::before {
+                transform-origin: left top;
+                transform: rotate(38deg);
+            }
+
+            &::after {
+                transform-origin: left bottom;
+                transform: rotate(-38deg);
+            }
+        }
+
         /* Navbar */
         /* flip-card always under relative or sticky parent */
         .flip-card {
@@ -80,9 +135,9 @@
             @apply block py-2 px-4 hover:bg-gray-400 hover:text-white rounded-lg;
         }
 
-        nav .dropdown:hover .dropdown-menu {
+        /* nav .dropdown:hover .dropdown-menu {
             @apply block;
-        }
+        } */
 
         nav .dropdown-menu:hover {
             @apply block;
@@ -91,7 +146,7 @@
 
 </head>
 <body>
-    <aside class="fixed mt-[64px] md:mt-0 h-full w-[160px] hidden md:block p-2">
+    <aside class="fixed mt-[64px] md:mt-0 h-full w-[var(--sidebar-width)] hidden md:block p-2">
         <div class="relative h-full w-full">
             <div class="flip-card shadow-md rounded-lg animate-fullSideFlipOnce">
                 <div class="face bg-gray-300 rounded-lg flex-col pt-3">
@@ -111,15 +166,18 @@
         </div>
     </aside>
 
-    <nav class="md:ms-[160px] sticky top-0 h-14 p-2 me-4">
+    <nav class="md:ms-[var(--sidebar-width)] sticky top-0 h-14 p-2 me-4">
         <div class="flip-card rounded-lg shadow-md animate-fullFrontFlipOnce">
             <div class="face bg-gray-300 rounded-lg">
                 <div class="flex items-center justify-between w-full mx-2">
 
                     <!-- Mobile Menu Button -->
                     <div id="menuToggler" class="flex items-center md:hidden">
-                        <button type="button" class="bg-gray-500 text-white  px-4 py-2 rounded-lg" onclick="toggleMobileSideMenu()"><i class="fa fa-chevron-right transition-all duration-500"></i></button>
-                        <button type="button" class="px-4 py-2 rounded-lg" onclick="toggleMobileTopMenu()"><i class="fa fa-bars"></i></button>
+                        <button type="button" class="px-4 py-2 rounded-lg" onclick="toggleMobileSideMenu()"><i class="fa fa-chevron-right transition-all duration-500"></i></button>
+                        <div class="relative">
+                            <input type="checkbox" id="burgerToX" onchange="toggleMobileTopMenu(event)">
+                            <label for="burgerToX"></label>
+                        </div>
                     </div>
 
                     <!-- Navbar Icon -->
@@ -131,16 +189,26 @@
                     <div class="bg-gray-300 hidden md:flex w-full absolute md:static 
                     top-12 left-0 md:inset-0 rounded-lg 
                     shadow-md md:shadow-none p-4 md:p-0
-                    justify-center">
+                    justify-center transition-all duration-500 animate-fullFrontFlipOnce">
                         <ul class="flex flex-col md:flex-row gap-5 border-t border-gray-400 md:border-0 pt-3 md:pt-0">
                             <li class="dropdown">
                                 <a href="#" class="dropdown-button">Master</a>
-                                <ul class="dropdown-menu w-full md:w-48 
+                                <ul class="dropdown-menu w-full md:w-64
                                 hidden relative md:absolute 
                                 bg-gray-300 md:shadow-md 
-                                border-b border-gray-400 md:border-0 p-2">
+                                border-t border-b border-gray-400 md:border-0 p-2">
                                     <li><a href="#" class="dropdown-item">User</a></li>
-                                    <li><a href="#" class="dropdown-item">Transaction Code</a></li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-button">Transaction Code</a>
+                                        <ul class="dropdown-menu w-full md:w-64 
+                                        hidden relative md:absolute 
+                                        bg-gray-300 md:shadow-md 
+                                        border-t border-b border-gray-400 md:border-0 p-2">
+                                            <li><a href="#" class="dropdown-item">Account Receivable</a></li>
+                                            <li><a href="#" class="dropdown-item">Account Payable</a></li>
+                                            <li><a href="#" class="dropdown-item">Inventory</a></li>
+                                        </ul>
+                                    </li>
                                     <li><a href="#" class="dropdown-item">Item</a></li>
                                 </ul>
                             </li>
@@ -166,7 +234,7 @@
         </div>
     </nav>
 
-    <main class="md:ms-[160px] p-2">
+    <main class="md:ms-[var(--sidebar-width)] p-2">
         
         <header class="mb-3">
             <h1>Flip UI</h1>
