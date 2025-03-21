@@ -94,15 +94,15 @@
         }
 
         #menuToggler {
-            @apply bg-[#364153] rounded-full px-1 py-2;
+            @apply bg-[#d1d5dc] rounded-full border-2 border-black px-1 py-2;
 
             &::before {
                 content: '';
                 position: absolute;
                 width: 1.75em;
                 height: 1.75em;
-                border-radius: 0;
-                background-color: #d1d5dc;
+                border-radius: 50%;
+                background-color: #4a5565;
                 top: 6%;
                 left: 30%;
                 transition: all 0.3s ease-in-out;
@@ -113,13 +113,13 @@
         #menuToggler:has(input[type="radio"][value="side"]:checked) {
                 
             &::before {
-                left: 5%;
+                left: 3%;
                 border-radius: 50%;
             }
 
             & input[value="side"]::before {
                 left: 12%;
-                color: #4a5565;
+                color: #d1d5dc;
             }
         }
 
@@ -133,7 +133,7 @@
     
                 & input[value="top"]::before {
                     right: 10%;
-                    color: #4a5565;
+                    color: #d1d5dc;
                 }
             }
 
@@ -141,24 +141,24 @@
             @apply appearance-none w-4 h-4 border-0 text-center;
             
             &[value="side"]::before {
-                content: '\f054';
+                content: '\f03c';
                 font-family: 'FontAwesome';
                 position: absolute;
                 top: 10%;
                 left: 5%;
-                color: #d1d5dc;
+                color: #4a5565;
                 height: 1em;
                 width: 1em;
                 transition: left 0.3s ease-in-out;
             }
 
             &[value="top"]::before {
-                content: '\f550';
+                content: '\f0c9';
                 font-family: 'FontAwesome';
                 position: absolute;
                 top: 10%;
                 right: 5%;
-                color: #d1d5dc;
+                color: #4a5565;
                 height: 1em;
                 width: 1em;
                 transition: right 0.3s ease-in-out;
@@ -326,7 +326,7 @@
         </div>
     </aside>
 
-    <nav class="md:ms-[var(--sidebar-width)] sticky top-0 h-14 p-2 me-4 z-10">
+    <nav class="md:ms-[var(--sidebar-width)] sticky top-0 h-14 p-2 me-2 z-10">
         <div class="flip-card rounded-lg shadow-md animate-fullFrontFlipOnce">
             <div class="face bg-gray-300 rounded-lg">
                 <div class="flex items-center justify-between w-full mx-2">
