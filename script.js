@@ -50,6 +50,28 @@ $(document).ready(function() {
     });
 });
 
+document.getElementById('menuToggler').addEventListener('change', (event) => {
+
+    let sideMenu = document.querySelector('aside');
+    let navMenu = document.querySelector('nav div:nth-child(3)');
+
+    if(event.target.value === 'off')
+    {
+        sideMenu.classList.add('hidden');
+        navMenu.classList.add('hidden');
+    }
+    else if(event.target.value === 'side')
+    {
+        sideMenu.classList.remove('hidden');
+        navMenu.classList.add('hidden');
+    }
+    else if(event.target.value === 'top')
+    {
+        sideMenu.classList.add('hidden');
+        navMenu.classList.remove('hidden');
+    }
+});
+
 function toggleMobileTopMenu(e){
     let navMenu = document.querySelector('nav div:nth-child(3)');
 

@@ -55,18 +55,6 @@
             @apply rounded-lg px-4 py-2 hover:bg-gray-400 hover:text-white;
         }
 
-        /* #menuToggler::after {
-            content: '';
-            position: absolute;
-            background-color: transparent;
-            width: 57px;
-            height: 57px;
-            border-radius: 50%;
-            top: -20%;
-            right: -10%;
-            box-shadow: 5px 0 0 0 white;
-        } */
-
         #burgerToX {
             display: none;
         }
@@ -103,6 +91,79 @@
                 bottom: -300%;
                 left: 0;
             }
+        }
+
+        #menuToggler {
+            @apply bg-[#364153] rounded-full px-1 py-2;
+
+            &::before {
+                content: '';
+                position: absolute;
+                width: 1.75em;
+                height: 1.75em;
+                border-radius: 0;
+                background-color: #d1d5dc;
+                top: 6%;
+                left: 30%;
+                transition: all 0.3s ease-in-out;
+            }
+
+        }
+        
+        #menuToggler:has(input[type="radio"][value="side"]:checked) {
+                
+            &::before {
+                left: 5%;
+                border-radius: 50%;
+            }
+
+            & input[value="side"]::before {
+                left: 12%;
+                color: #4a5565;
+            }
+        }
+
+        
+        #menuToggler:has(input[type="radio"][value="top"]:checked) {
+                
+                &::before {
+                    left: 58%;
+                    border-radius: 50%;
+                }
+    
+                & input[value="top"]::before {
+                    right: 10%;
+                    color: #4a5565;
+                }
+            }
+
+        input[type="radio"][name="toggler"] {
+            @apply appearance-none w-4 h-4 border-0 text-center;
+            
+            &[value="side"]::before {
+                content: '\f054';
+                font-family: 'FontAwesome';
+                position: absolute;
+                top: 10%;
+                left: 5%;
+                color: #d1d5dc;
+                height: 1em;
+                width: 1em;
+                transition: left 0.3s ease-in-out;
+            }
+
+            &[value="top"]::before {
+                content: '\f550';
+                font-family: 'FontAwesome';
+                position: absolute;
+                top: 10%;
+                right: 5%;
+                color: #d1d5dc;
+                height: 1em;
+                width: 1em;
+                transition: right 0.3s ease-in-out;
+            }
+            
         }
 
         #burgerToX:checked ~ label {
@@ -271,12 +332,15 @@
                 <div class="flex items-center justify-between w-full mx-2">
 
                     <!-- Mobile Menu Button -->
-                    <div id="menuToggler" class="relative flex items-center md:hidden divide-x-1 py-2 gap-2">
-                        <button type="button" class="ps-2 pe-4 py-2 cursor-pointer text-xs" onclick="toggleMobileSideMenu()"><i class="fa fa-chevron-right transition-all duration-500"></i></button>
+                    <div id="menuToggler" class="relative flex items-center justify-center md:hidden gap-2">
+                        <!-- <button type="button" class="ps-2 pe-4 py-2 cursor-pointer text-xs" onclick="toggleMobileSideMenu()"><i class="fa fa-chevron-right transition-all duration-500"></i></button>
                         <div class="relative me-10">
                             <input type="checkbox" id="burgerToX" onchange="toggleMobileTopMenu(event)">
                             <label for="burgerToX"></label>
-                        </div>
+                        </div> -->
+                        <input type="radio" name="toggler" value="side">
+                        <input type="radio" name="toggler" value="off" checked>
+                        <input type="radio" name="toggler" value="top">
                     </div>
 
                     <!-- Navbar Icon -->
