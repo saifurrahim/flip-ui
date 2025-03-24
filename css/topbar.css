@@ -1,0 +1,194 @@
+
+header:has(nav) {
+    position: sticky;
+    top: 0;
+}
+
+#menuToggler {
+    display: flex;
+    width: 32px;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+#topMenuToggler {
+
+    display: none;
+
+    & ~ label {
+        content: '';
+        width: 1.5em;
+        height: .25em;
+        background-color: honeydew;
+        border-radius: .75em;
+        position: absolute;
+        top: 45%;
+        cursor: pointer;
+        transition: all .5s;
+
+        &::before,
+        &::after {
+            content: '';
+            width: 1.5em;
+            height: .25em;
+            background-color: honeydew;
+            border-radius: .75em;
+            position: absolute;
+            transition: all .5s;
+            transform: rotate(0deg);
+        }
+
+        &::before {
+            top: -200%;
+            transform-origin: top left;
+        }
+
+        &::after {
+            top: 200%;
+            transform-origin: bottom left;
+        }
+    }
+
+    &:checked {
+        
+        & ~ label {
+            
+            background-color: transparent;
+
+            &::before{
+                transform: rotate(45deg);
+            }
+            
+            &::after{
+                transform: rotate(-45deg);
+            }
+        }
+    }
+}
+
+header:has(nav) nav {
+    background-image: linear-gradient(to right, darkturquoise, cornflowerblue , navy);
+    color: honeydew;
+    border-radius: 1rem;
+    padding: .25rem .5rem;
+    display: flex;
+    justify-content: space-between;
+
+    & a.brand {
+        position: relative;
+        min-width: 72px;
+        min-height: 36px;
+        font-size: 1.5em;
+        font-weight: 800;
+        background: linear-gradient(45deg, ghostwhite, white, whitesmoke);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        transform: rotate(0deg);
+        transition: all .5s;
+
+        &:hover {
+            background: linear-gradient(45deg, gainsboro, whitesmoke, silver);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transform: rotateY(360deg);
+        }
+    }
+
+    & ul.menu {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        gap: 1em;
+        align-items: center;
+        justify-content: center;
+        background-image: linear-gradient(to right, darkturquoise, cornflowerblue , navy);
+        top: 105%;
+        left: 0;
+        border-radius: 1rem;
+        width: 100%;
+        padding: 1rem 0;
+    }
+
+    & section.action {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: .5em;
+
+        & .user-image {
+            background-color: whitesmoke;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            overflow: hidden;
+
+            & img {    
+                object-fit: cover;
+            }
+        }
+
+        & .user-info {
+            display: flex;
+            flex-direction: column;
+
+            & .username {
+                font-size: 12px;
+            }
+            
+            & .user-role {
+                font-size: 10px;
+            }
+        }
+
+        & .dropdown {
+            
+            & .dropdown-button * {
+                transform: rotate(0deg);
+                transition: transform .5s ;
+            }
+
+            & .dropdown-menu {        
+                background-color: aliceblue;
+                color: slateblue;
+
+                &  .dropdown-item:hover {
+                    color: aliceblue;
+                    background-color: slateblue;
+                }
+            }
+
+            &:hover .dropdown-button * {
+                transform: rotate(180deg);
+            }
+            
+            &:hover .dropdown-menu {
+                display: flex;
+            }
+        }
+
+        
+    }
+}
+
+@media (min-width: 768px) {
+
+    header:has(nav) {
+        margin-left: calc(var(--sidebar-width) + var(--body-padding));
+
+        & nav ul.menu {
+            display: flex !important;
+            flex-direction: row;
+            position: relative;
+            background-image: none;
+            width: fit-content;
+            padding: 0 0;
+        }
+    }
+
+    #menuToggler {
+        display: none;
+    }
+}

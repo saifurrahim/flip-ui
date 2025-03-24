@@ -12,503 +12,77 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
-    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" href="css/dropdown.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/topbar.css">
     
-    <style type="text/tailwindcss">
-        @theme{
-            --sidebar-width: 160px;
-            --animate-fullFrontFlipOnce: fullFrontFlip .5s ease both;
-            --animate-fullSideFlipOnce: fullSideFlip .5s ease both;
-
-            @keyframes fullFrontFlip {
-                from {
-                    transform: rotateX(0deg);
-                }
-                to {
-                    transform: rotateX(360deg);
-                }
-            }
-
-            @keyframes fullSideFlip {
-                from {
-                    transform: rotateY(0deg);
-                }
-                to {
-                    transform: rotateY(360deg);
-                }
-            }
-        }
-
-        body {
-            @apply bg-gray-200;
-        }
-
-        h1 {
-            @apply text-[32px] text-gray-800 font-bold;
-        }
-
-        h2 {
-            @apply text-[24px] text-gray-600 font-semibold;
-        }
-
-        .menu-item {
-            @apply rounded-lg px-4 py-2 hover:bg-gray-400 hover:text-white;
-        }
-
-        #burgerToX {
-            display: none;
-        }
-
-        #burgerToX ~ label {
-            width: 1em;
-            height: .11em;
-            background-color: black;
-            border-radius: 20px;
-            position: absolute;
-            cursor: pointer;
-            top:0;
-            transition: all .5s cubic-bezier(1,0,0,1);
-            
-            &::before,
-            &::after {
-                content: '';
-                width: 1.25em;
-                height: .11em;
-                background-color: black;
-                border-radius: 20px;
-                position: absolute;
-                display: block;
-                transform: rotate(0deg);
-                transition: all .5s cubic-bezier(1,0,0,1);
-            }
-
-            &::before {
-                top: -300%;
-                left: 0;
-            }
-            
-            &::after {
-                bottom: -300%;
-                left: 0;
-            }
-        }
-
-        #menuToggler {
-            @apply bg-[#d1d5dc] rounded-full border-2 border-black px-1 py-2;
-
-            &::before {
-                content: '';
-                position: absolute;
-                width: 1.75em;
-                height: 1.75em;
-                border-radius: 50%;
-                background-color: #4a5565;
-                top: 6%;
-                left: 30%;
-                transition: all 0.3s ease-in-out;
-            }
-
-        }
-        
-        #menuToggler:has(input[type="radio"][value="side"]:checked) {
-                
-            &::before {
-                left: 3%;
-                border-radius: 50%;
-            }
-
-            & input[value="side"]::before {
-                left: 12%;
-                color: #d1d5dc;
-            }
-        }
-
-        
-        #menuToggler:has(input[type="radio"][value="top"]:checked) {
-                
-                &::before {
-                    left: 58%;
-                    border-radius: 50%;
-                }
-    
-                & input[value="top"]::before {
-                    right: 10%;
-                    color: #d1d5dc;
-                }
-            }
-
-        input[type="radio"][name="toggler"] {
-            @apply appearance-none w-4 h-4 border-0 text-center;
-            
-            &[value="side"]::before {
-                content: '\f03c';
-                font-family: 'FontAwesome';
-                position: absolute;
-                top: 10%;
-                left: 5%;
-                color: #4a5565;
-                height: 1em;
-                width: 1em;
-                transition: left 0.3s ease-in-out;
-            }
-
-            &[value="top"]::before {
-                content: '\f0c9';
-                font-family: 'FontAwesome';
-                position: absolute;
-                top: 10%;
-                right: 5%;
-                color: #4a5565;
-                height: 1em;
-                width: 1em;
-                transition: right 0.3s ease-in-out;
-            }
-            
-        }
-
-        #burgerToX:checked ~ label {
-            background-color: transparent;
-
-            /* &::before,
-            &::after {
-                background-color: white;
-            } */
-
-            &::before {
-                transform-origin: left top;
-                transform: rotate(36deg);
-            }
-
-            &::after {
-                transform-origin: left bottom;
-                transform: rotate(-36deg);
-            }
-        }
-
-        /* Navbar */
-        /* flip-card always under relative or sticky parent */
-        .flip-card {
-            @apply absolute h-full w-full transform-3d transition-all duration-500;
-        }
-
-        .flip-card .face {
-            @apply absolute h-full w-full backface-hidden flex items-center;
-        }
-
-        nav .dropdown {
-            @apply relative rounded-lg px-4 py-2;
-        }
-
-        nav .dropdown-button {
-            @apply cursor-pointer;
-        }
-
-        nav .dropdown-button::after {
-            content: '\f078';
-            font-family: 'FontAwesome';
-            margin-left: .25rem;
-        }
-
-        nav .dropdown-item {
-            @apply block py-2 px-4 hover:bg-gray-400 hover:text-white rounded-lg;
-        }
-
-        /* nav .dropdown:hover .dropdown-menu {
-            @apply block;
-        } */
-
-        nav .dropdown-menu:hover {
-            @apply block;
-        }
-
-        /* Inputs */
-        input[type=text] {
-            @apply appearance-none bg-white px-2 py-1 shadow-sm outline-0 border-0 rounded-sm focus:animate-fullFrontFlipOnce;
-        }
-
-        input[type=checkbox] {
-            @apply appearance-none relative w-4 h-4 bg-white border border-gray-300 rounded-sm checked:bg-blue-600 checked:border-transparent checked:animate-fullFrontFlipOnce;
-
-            &:checked::before {
-                content: '\f00c'; /* Unicode character for checkmark */
-                font-family: 'FontAwesome';
-                @apply text-white absolute bottom-[-25%];
-            }
-        }
-        
-        .select2-container {
-            @apply !rounded-sm !shadow-sm !bg-gray-100 !w-full;
-        }
-
-        .select2-container:has(.select2-selection--single[aria-expanded="true"]) {
-            @apply animate-fullFrontFlipOnce;
-        }
-
-        .select2-container--default .select2-selection--single {
-            @apply !border-0 !rounded-sm !h-10 !align-middle;
-        }
-
-        .select2-container--default .select2-selection--single .select2-selection__rendered {
-            @apply !h-full !flex !items-center;
-        }
-
-        .select2-container--default .select2-selection--single .select2-selection__clear {
-            font-family: 'FontAwesome';
-            content: "\f00d"; /* fa-times */
-            @apply !h-full !flex !items-center !pe-4;
-        }
-
-        .select2-container--open .select2-dropdown--below,
-        .select2-container--open .select2-dropdown--above {
-            @apply !border-0 !rounded-sm !mt-1; /*  animate-fullFrontFlipOnce */
-        }
-
-        .select2-container--default .select2-selection--single .select2-selection__arrow {
-            @apply !top-[15%] !right-[2%];
-
-            & b {
-                border-color: black transparent transparent transparent !important;
-                border-width: 6px 5px 0 5px !important;
-            }
-        }
-        
-        .select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
-            border-color: transparent transparent black transparent !important;
-            border-width: 0 5px 6px 5px !important;
-        }
-
-        .select2-container--default .select2-search--dropdown .select2-search__field {
-            @apply !rounded-sm !border-0 !shadow-sm !outline-0 ps-8;
-        }
-
-        .select2-search--dropdown::before {
-            content: '\f002'; /* search icon */
-            font-family: 'FontAwesome';
-            position: absolute;
-            top: 8%;
-            left: 3%;
-
-        }
-
-        #idCard .front-content::before {
-            content: '';
-            height: 144px;
-            width: 230px;
-            background-color: transparent;
-            position: absolute;
-            bottom: 15%;
-            left: 45%;
-            border-radius: 50%;
-            transform: rotate(146deg);
-            box-shadow: 25px 10px 0 0 orange;
-        }
-    </style>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animation.css">
 
 </head>
 <body>
-    <aside class="fixed mt-[64px] md:mt-0 h-full w-[var(--sidebar-width)] hidden md:block p-2 z-10">
-        <div class="relative h-full w-full">
-            <div class="flip-card shadow-md rounded-lg animate-fullSideFlipOnce">
-                <div class="face bg-gray-300 rounded-lg flex-col pt-3">
-                    <h2>Sidebar</h2>
-                    <ul class="flex flex-col w-full justify-center">
-                        <li class="menu-item text-center">Menu 1</li>
-                        <li class="menu-item text-center">Menu 2</li>
-                        <li class="menu-item text-center">Menu 3</li>
-                        <li class="menu-item text-center">Menu 4</li>
-                        <li class="menu-item text-center">Menu 5</li>
-                    </ul>
-                </div>
-                <div class="face bg-gray-300 rounded-lg rotate-y-180">
-
-                </div>
-            </div>
-        </div>
+    <!-- Sidebar -->
+    <aside>
+        <nav>Side</nav>
     </aside>
 
-    <nav class="md:ms-[var(--sidebar-width)] sticky top-0 h-14 p-2 me-2 z-10">
-        <div class="flip-card rounded-lg shadow-md animate-fullFrontFlipOnce">
-            <div class="face bg-gray-300 rounded-lg">
-                <div class="flex items-center justify-between w-full mx-2">
+    <!-- Topbar -->
+    <header>
+        <nav class="shadow-md">
+            <section id="menuToggler">
+                <input type="checkbox" id="topMenuToggler">
+                <label for="topMenuToggler"></label>
+            </section>
 
-                    <!-- Mobile Menu Button -->
-                    <div id="menuToggler" class="relative flex items-center justify-center md:hidden gap-2">
-                        <!-- <button type="button" class="ps-2 pe-4 py-2 cursor-pointer text-xs" onclick="toggleMobileSideMenu()"><i class="fa fa-chevron-right transition-all duration-500"></i></button>
-                        <div class="relative me-10">
-                            <input type="checkbox" id="burgerToX" onchange="toggleMobileTopMenu(event)">
-                            <label for="burgerToX"></label>
-                        </div> -->
-                        <input type="radio" name="toggler" value="side">
-                        <input type="radio" name="toggler" value="off" checked>
-                        <input type="radio" name="toggler" value="top">
-                    </div>
+            <a href="#" class="brand">
+                <span>Flip</span> UI
+            </a>
 
-                    <!-- Navbar Icon -->
-                    <div class="flex">
-                        <h2>Navbar</h2>
-                    </div>
+            <ul class="menu shadow-md md:shadow-none">
+                <li>
+                    <a href="#">Master</a>
+                </li>
+                <li>
+                    <a href="#">Transaction</a>
+                </li>
+                <li>
+                    <a href="#">Report</a>
+                </li>
+            </ul>
 
-                    <!-- Navbar Menu -->
-                    <div class="bg-gray-300 hidden md:flex w-full absolute md:static 
-                    top-12 left-0 md:inset-0 rounded-lg 
-                    shadow-md md:shadow-none p-4 md:p-0
-                    justify-center transition-all duration-500 animate-fullFrontFlipOnce">
-                        <ul class="flex flex-col md:flex-row gap-5 border-t border-gray-400 md:border-0 pt-3 md:pt-0">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-button">Master</a>
-                                <ul class="dropdown-menu w-full md:w-64
-                                hidden relative md:absolute 
-                                bg-gray-300 md:shadow-md 
-                                border-t border-b border-gray-400 md:border-0 p-2">
-                                    <li><a href="#" class="dropdown-item">User</a></li>
-                                    <li class="dropdown">
-                                        <a href="#" class="dropdown-button">Transaction Code</a>
-                                        <ul class="dropdown-menu w-full md:w-64 
-                                        hidden relative md:absolute 
-                                        bg-gray-300 md:shadow-md 
-                                        border-t border-b border-gray-400 md:border-0 p-2">
-                                            <li><a href="#" class="dropdown-item">Account Receivable</a></li>
-                                            <li><a href="#" class="dropdown-item">Account Payable</a></li>
-                                            <li><a href="#" class="dropdown-item">Inventory</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#" class="dropdown-item">Item</a></li>
-                                </ul>
-                            </li>
-                            <li class="menu-item">
-                                <a href="#" class="">Transaction</a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="#" class="">Report</a>
-                            </li>
-                        </ul>
-                    </div>
+            <section class="action">
 
-                    <!-- Navbar Action -->
-                    <div class="flex items-center gap-2">
-                            <span>Username</span>
-                            <button type="button" class="bg-gray-800 text-white rounded-lg px-4 py-2">Logout</button>
-                    </div>
+                <div class="user-image">
+                    <img src="my_portrait.png">
                 </div>
-            </div>
-            <div class="face bg-gray-300 rotate-y-[180deg] rounded-lg">
-
-            </div>
-        </div>
-    </nav>
-
-    <main class="md:ms-[var(--sidebar-width)] p-2">
-        
-        <header class="mb-3">
-            <h1>Flip UI</h1>
-            <p class="break-all">It's just an HTML UI template to be used as default UI in my projects. Because I often take much time just thinking about styling rather than do the actual code.</p>
-        </header>
-
-        <!-- Inputs -->
-        <section>
-            <h2>Inputs</h2>
-            <div class="flex flex-col md:flex-row md:items-center gap-2 my-6">
-                <input type="text" placeholder="Input Text..." class="w-full h-10">
-                <div class="relative z-0 flex items-center gap-1">
-                    <input type="checkbox" id="inputCheckbox">
-                    <label for="inputCheckbox">Used</label>
+                <span class="user-info">
+                    <b class="username">Saifurrahim</b>
+                    <small class="user-role">Web Developer</small>
+                </span>
+                <div class="dropdown">
+                    <a href="#" class="dropdown-button">
+                        <i class="fa fa-cog"></i>
+                    </a>
+                    <ul class="dropdown-menu right-[25%] top-[100%] shadow-sm">
+                        <li class="dropdown-item">
+                            <a href="#"><i class="fa fa-user me-1"></i> Account</a>
+                        </li>
+                        <li class="dropdown-item">
+                            <a href="#"><i class="fa fa-door-open me-1"></i> Logout</a>
+                        </li>
+                    </ul>
                 </div>
-                <select class="" required>
-                    <option value="" selected class="hidden"></option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                </select>
-                
-            </div>
-        </section>
-        
-        <!-- Flip Button -->
-        <section>
-            <h2>Flip Button</h2>
-            <div class="relative h-[48px] w-[125px] my-6">
-                <div class="flip-card rounded-md w-full h-full">
-                    <div class="face rounded-md w-full h-full">
-                        <button type="button" class="w-full h-full rounded-md px-4 py-2 bg-indigo-700 text-white cursor-pointer"
-                        onclick="buttonClick(event)">Click</button>
-                    </div>
-                    <div class="face rounded-md rotate-y-180 w-full h-full">
-                        <button type="button" class="w-full h-full rounded-md px-4 py-2 bg-indigo-200 text-white disabled:cursor-not-allowed" disabled>
-                            <i class="fa fa-spinner animate-spin"></i>
-                            Loading
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Flip Card -->
-        <section>
-            <h2>Flip Card</h2>
-            
-            <div class="relative h-[180px] w-[320px] my-6">
-                <div id="idCard" class="flip-card shadow-md">
-                    <div class="face bg-white text-black p-4 rounded-lg">
-                        <!-- front content -->
-                        <div class="front-content grid grid-cols-2 h-full">
-                            <div class="grid grid-flow-cols">
-                                <span class="font-bold">
-                                    Saifurrahim Widya Prawira
-                                </span>
-                                <p>
-                                    Web Developer
-                                </p>
-                                <div class="flex">
-                                    <button class="bg-gray-700 hover:bg-gray-900 text-white rounded-lg px-4" onclick="faceDown()">
-                                        Contact
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="flex items-center">
-                                <img src="my_portrait.png" alt="image" class="rounded-full">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="face bg-gray-800 text-white rounded-lg p-4 rotate-y-180">
+            </section>
 
-                        <div class="flex flex-col justify-between h-full w-full">
-            
-                            <div class="flex flex-col">
-                                <span>
-                                    <i class="fa fa-phone"></i> (+62) 858-1187-3045
-                                </span>
-                            
-                                <span>
-                                    <i class="fa fa-envelope"></i> saifurrahimwp@gmail.com
-                                </span>
-                            
-                                <span>
-                                    <i class="fa fa-home"></i> Serang, Banten, Indonesia
-                                </span>
-                            </div>
-        
-                            <button class="bg-gray-300 hover:bg-gray-100 text-black rounded-lg px-4" onclick="faceUp()">
-                                Back
-                            </button>
-                        
-                        </div>
-                    </div>
-                </div> 
-            </div>
-        </section>
+        </nav>
+    </header>
 
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, nihil excepturi. Incidunt ut amet blanditiis, aperiam nemo earum molestias enim aspernatur modi dolores ex non a voluptatem accusamus doloribus et.
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati libero quod totam? Quod, quasi consequuntur dolores asperiores dignissimos sequi dolore ullam aut quibusdam cum odit architecto alias earum necessitatibus? Inventore!
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti omnis commodi, est placeat, quaerat rem perspiciatis rerum nihil eligendi error, aspernatur voluptatem fugit accusamus. Assumenda dolores officiis ullam tempore voluptate?
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem illum ipsam tempore hic. Dicta error omnis temporibus alias deleniti vero ipsa repudiandae impedit cum, reprehenderit possimus quam. Adipisci, possimus laudantium.
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam illo porro sint, quisquam asperiores expedita ex iste voluptas fugiat nobis, nostrum atque hic accusamus. Quas expedita necessitatibus suscipit facere debitis!
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veniam minima odio corporis, aspernatur esse veritatis, recusandae voluptate delectus perferendis sit eaque, pariatur ab nulla consequatur reiciendis adipisci. Velit, iusto natus!
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus minus accusantium quos delectus aliquid recusandae nulla animi laudantium architecto et, excepturi, in, odio explicabo beatae facere impedit iste tempore sint.
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos cumque quibusdam, provident dolorum maxime expedita tempore quas debitis eaque hic repellat, officiis dolor reprehenderit repellendus architecto? Ipsum repellat veniam cupiditate?
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste commodi excepturi praesentium atque unde, a, minima nobis eos facilis veritatis vel cumque iusto, at deserunt autem tempore accusantium facere placeat!
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti voluptatibus nisi numquam repellat est iste alias vero tempora in recusandae explicabo magnam, consequatur aliquam magni qui, quidem, vel sapiente nostrum.
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae voluptas quo, minus veritatis nesciunt voluptatibus ut reprehenderit necessitatibus iure consequatur quia. Eveniet nisi ex voluptates perferendis, sed pariatur temporibus excepturi.
+    <main>
+        Main
     </main>
 
-    <script src="script.js"></script>
+    <script src="js/topbar.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>

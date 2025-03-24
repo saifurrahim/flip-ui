@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Manrope:wght@200..800&family=Winky+Sans:ital,wght@0,300..900;1,300..900&display=swap');
+
+:root {
+    --sidebar-width: 300px;
+    --body-padding: .5rem;
+}
+
+body {
+    background-color: whitesmoke;
+    font-family: 'Manrope', sans-serif;
+    padding: var(--body-padding);
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+@media (min-width: 768px) {
+
+    main {
+        margin-left: calc(var(--sidebar-width) + var(--body-padding));
+    }
+}
