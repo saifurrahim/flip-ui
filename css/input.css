@@ -1,0 +1,35 @@
+input[type="text"] {
+    background-color: white;
+    border-radius: .25em;
+    height: 2em;
+    padding: .5em;
+    appearance: none;
+    outline: none;
+    line-height: 1;
+    box-sizing: border-box;
+    box-shadow: 1px 2px .2rem rgba(0,0,0,.1);
+    color: darkslategrey;
+
+    &:focus {
+        box-shadow: 1px 2px .3rem rgba(0,0,0,.25);
+    }
+}
+
+.search-box {
+    position: relative;
+    
+    &::before {
+        content: '\f002';
+        font-family: 'FontAwesome';
+        position: absolute;
+        top: 10%;
+        left: 2%;
+        width: 16px;
+        height: 16px;
+        color: dimgrey;
+    }
+
+    & input[type="text"] {
+        padding-left: 1.5em;
+    }
+}

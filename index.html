@@ -13,6 +13,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
 
+    <link rel="stylesheet" href="css/input.css">
     <link rel="stylesheet" href="css/dropdown.css">
     <link rel="stylesheet" href="css/sidebar.css">
     <link rel="stylesheet" href="css/topbar.css">
@@ -23,15 +24,34 @@
 </head>
 <body>
     <!-- Sidebar -->
-    <aside>
-        <nav>Side</nav>
+    <aside class="shadow-md">
+        <nav>
+            <div class="search-box">
+                <input type="text" placeholder="Search everything" class="w-full">
+            </div>
+            <ul class="menu">
+                <li class="menu-item">
+                    <a href="#"><i class="fa fa-chart-line"></i> Dashboard</a>
+                </li>
+                <li class="menu-item">
+                    <a href="#"><i class="fa fa-list-check"></i> To Do List</a>
+                </li>
+                <li class="menu-item">
+                    <a href="#"><i class="fa-regular fa-square-check"></i> Approval</a>
+                </li>
+            </ul>
+        </nav>
     </aside>
 
     <!-- Topbar -->
     <header>
         <nav class="shadow-md">
             <section id="menuToggler">
-                <input type="checkbox" id="topMenuToggler">
+                <div class="side-container shadow-md">
+                    <input type="checkbox" id="sideMenuToggler" placeholder="side" title=" ">
+                    <label for="sideMenuToggler"></label>
+                </div>
+                <input type="checkbox" id="topMenuToggler" placeholder="top" title=" ">
                 <label for="topMenuToggler"></label>
             </section>
 

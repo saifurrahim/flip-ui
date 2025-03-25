@@ -10,6 +10,71 @@ header:has(nav) {
     align-items: center;
     justify-content: center;
     position: relative;
+
+    & .side-container {
+        position: absolute;
+        top: -10%;
+        left: -100%;
+        width: 1.35em;
+        height: 2.75em;
+        border-top-right-radius: 1rem;
+        border-bottom-right-radius: 1rem;
+        background-image: linear-gradient(-60deg, crimson, navy);
+    
+    }
+}
+
+#sideMenuToggler {
+    display: none;
+
+    & ~ label {
+        content: ''; 
+        width: 1.25em;
+        height: .25em;
+        position: absolute;
+        top: 35%;
+        left: 0;
+        cursor: pointer;
+
+        &::before,
+        &::after {
+            content: '';
+            width: 1em;
+            height: .25em;
+            background-color: ghostwhite;
+            border-radius: .75em;
+            position: absolute;
+            left: 15%;
+            cursor: pointer;
+            transition: all .5s ease;
+        }
+
+        &::before {
+            top: 0;
+            transform: rotate(45deg);
+        }
+
+        &::after {
+            top: 240%;
+            transform: rotate(-45deg);
+        }
+    }
+
+    &:checked {
+        
+        & ~ label {
+
+            &::before {
+                top: 0;
+                transform: rotate(-45deg);
+            }
+    
+            &::after {
+                top: 240%;
+                transform: rotate(45deg);
+            }
+        }
+    }
 }
 
 #topMenuToggler {
@@ -74,6 +139,7 @@ header:has(nav) nav {
     padding: .25rem .5rem;
     display: flex;
     justify-content: space-between;
+    margin-left: 1rem;
 
     & a.brand {
         position: relative;
@@ -98,18 +164,30 @@ header:has(nav) nav {
     }
 
     & ul.menu {
-        display: none;
+        display: flex;
+        visibility: hidden;
         flex-direction: column;
         position: absolute;
         gap: 1em;
         align-items: center;
         justify-content: center;
+        font-weight: 600;
         background-image: linear-gradient(to right, darkturquoise, cornflowerblue , navy);
-        top: 105%;
-        left: 0;
+        top: 150%;
+        left: 1em;
         border-radius: 1rem;
-        width: 100%;
+        width: calc(100% - 1em);
         padding: 1rem 0;
+        transition: top .5s ease;
+
+        &.appear {
+            visibility: visible;
+            top: 105%;
+        }
+
+        & li:hover {
+            color: gainsboro;
+        }
     }
 
     & section.action {
@@ -178,8 +256,12 @@ header:has(nav) nav {
     header:has(nav) {
         margin-left: calc(var(--sidebar-width) + var(--body-padding));
 
+        & nav {
+            margin-left: 0;
+        }
+
         & nav ul.menu {
-            display: flex !important;
+            visibility: visible !important;
             flex-direction: row;
             position: relative;
             background-image: none;

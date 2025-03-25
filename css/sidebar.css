@@ -2,15 +2,62 @@ aside:has(nav) {
     width: var(--sidebar-width);
     position: fixed;
     box-sizing: border-box;
-    top: var(--body-padding);
-    height: calc(100% - (var(--body-padding) * 2));
-    background-color: aquamarine;
-    display: none;
+    background-image: linear-gradient(-60deg, crimson, navy);
+    color: ghostwhite;
+    border-radius: 0 1rem 1rem 0;
+    top: 10%;
+    left: -100%;
+    visibility: hidden;
+    height: calc(90% - var(--body-padding));
+    padding: .75rem .5rem;
+    transition: left .5s ease;
+
+    &.appear {
+        left: 0;
+        visibility: visible;
+    }
+
+    & nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        & ul.menu {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            font-weight: 600;
+            align-items: start;
+            margin-top: 1em;
+            border-radius: .5em;
+
+            & li.menu-item {
+                width: 100%;
+                padding: .5em;
+                border-radius: .25em;
+                margin-bottom: .5em;
+                
+                &:hover {
+                    color: gold;
+                }
+
+                & a i {
+                    margin-right: .75em;
+                }
+            }
+        }
+    }
 }
 
 @media (min-width: 768px) {
 
     aside:has(nav) {
-        display: block;
+        display: block !important;
+        visibility: visible !important;
+        top: unset !important;
+        left: unset !important;
+        border-radius: 1rem !important;
+        height: calc(100% - (var(--body-padding) * 2)) !important;
     }
 }
