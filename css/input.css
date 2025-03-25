@@ -17,6 +17,10 @@ input[type="number"] {
     }
 }
 
+input[type="date"] {
+    min-width: 204px;
+}
+
 .search-box {
     position: relative;
     

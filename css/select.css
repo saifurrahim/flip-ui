@@ -1,6 +1,7 @@
 .select2-container {
     border-radius: .25em !important;
     box-shadow: 1px 2px .2rem rgba(0,0,0,.1) !important;
+    min-width: 204px;
     flex: 1;
     background-color: white !important;
 }
@@ -30,7 +31,8 @@
     height: 100% !important;
     display: flex !important;
     align-items: center !important;
-    padding-right: 1em !important;
+    padding-right: .25em !important;
+    padding-left: .25em !important;
 }
 
 .select2-container--open .select2-dropdown--below,
