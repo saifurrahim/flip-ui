@@ -10,6 +10,7 @@ aside:has(nav) {
     visibility: hidden;
     height: calc(90% - var(--body-padding));
     padding: .75rem .5rem;
+    z-index: 10;
     transition: left .5s ease;
 
     &.appear {
@@ -38,7 +39,8 @@ aside:has(nav) {
                 border-radius: .25em;
                 margin-bottom: .5em;
                 
-                &:hover {
+                &:hover,
+                &.active {
                     color: gold;
                 }
 

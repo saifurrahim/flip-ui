@@ -2,6 +2,7 @@
 header:has(nav) {
     position: sticky;
     top: 0;
+    z-index: 10;
 }
 
 #menuToggler {
@@ -185,8 +186,9 @@ header:has(nav) nav {
             top: 105%;
         }
 
-        & li:hover {
-            color: gainsboro;
+        & li:hover,
+        & li.active {
+            color: cyan;
         }
     }
 

@@ -7,6 +7,12 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
+    <style type="text/tailwindcss">
+        @theme {
+            --breakpoint-xs: 30rem;
+        }
+    </style>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
@@ -14,6 +20,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
 
     <link rel="stylesheet" href="css/input.css">
+    <link rel="stylesheet" href="css/select.css">
     <link rel="stylesheet" href="css/dropdown.css">
     <link rel="stylesheet" href="css/sidebar.css">
     <link rel="stylesheet" href="css/topbar.css">
@@ -36,7 +43,7 @@
                 <li class="menu-item">
                     <a href="#"><i class="fa fa-list-check"></i> To Do List</a>
                 </li>
-                <li class="menu-item">
+                <li class="menu-item active">
                     <a href="#"><i class="fa-regular fa-square-check"></i> Approval</a>
                 </li>
             </ul>
@@ -60,13 +67,13 @@
             </a>
 
             <ul class="menu shadow-md md:shadow-none">
-                <li>
+                <li class="menu-item">
                     <a href="#">Master</a>
                 </li>
-                <li>
+                <li class="menu-item active">
                     <a href="#">Transaction</a>
                 </li>
-                <li>
+                <li class="menu-item">
                     <a href="#">Report</a>
                 </li>
             </ul>
@@ -98,10 +105,52 @@
         </nav>
     </header>
 
-    <main>
-        Main
+    <main class="py-2">
+        <!-- Introduction -->
+        <section class="mb-2">
+            <h2 class="font-[600] text-[18px] mb-2">Introduction</h2>
+            <p>It's just an HTML UI template to be used as default UI in my projects. Because I often take much time just thinking about styling rather than do the actual code.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta ipsam similique, inventore nam tempora repellat atque magni dignissimos delectus perferendis ipsum? Quos distinctio voluptatibus officia consectetur ad atque deleniti beatae.</p>
+        </section>
+        
+        <!-- Inputs -->
+        <section class="mb-2" id="inputSection">
+            <h2 class="font-[600] text-[18px] mb-2">Inputs</h2>
+            
+            <div class="flex flex-wrap gap-2">
+                <input type="text" placeholder="Type anything">
+                <div class="flex">
+                    <select>
+                        <option value="" class="hidden" disabled selected></option>
+                        <option value="UIUX">UI/UX Designer</option>
+                        <option value="FrontEnd">Front End Developer</option>
+                        <option value="BackEnd">Back End Developer</option>
+                    </select>
+                </div>
+                <input type="date" placeholder="Your birthday">
+                <input type="number" placeholder="Your balance">
+                <div class="flex gap-2 relative">
+                    <input type="checkbox" name="agree" id="agreeCheckbox">
+                    <label for="agreeCheckbox">I agree with terms and conditions</label>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Buttons -->
+        <section class="mb-2" id="inputSection">
+            <h2 class="font-[600] text-[18px] mb-2">Buttons</h2>
+            
+            <div class="flex flex-wrap gap-2">
+                <button type="button" class="bg-indigo-500 hover:bg-indigo-300 text-white px-4 py-2 rounded-sm">Primary</button>
+                <button type="button" class="bg-gray-500 hover:bg-gray-300 text-white px-4 py-2 rounded-sm">Secondary</button>
+                <button type="button" class="bg-green-500 hover:bg-green-300 text-white px-4 py-2 rounded-sm">Success</button>
+                <button type="button" class="bg-yellow-500 hover:bg-yellow-300 text-black px-4 py-2 rounded-sm">Warning</button>
+                <button type="button" class="bg-red-500 hover:bg-red-300 text-white px-4 py-2 rounded-sm">Danger</button>
+            </div>
+        </section>
     </main>
 
+    <script src="js/select.js"></script>
     <script src="js/topbar.js"></script>
     <script src="js/script.js"></script>
 </body>
