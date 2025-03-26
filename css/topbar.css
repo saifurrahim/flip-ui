@@ -1,7 +1,7 @@
 
 header:has(nav) {
     position: sticky;
-    top: 0;
+    top: var(--body-padding);
     z-index: 10;
 }
 
